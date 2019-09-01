@@ -22,6 +22,11 @@ public class JBConnector extends PluginBase {
 		File file = new File(getDataFolder() + "/config.yml");
 		if(!file.exists()) {
 			config = new Config(getDataFolder()+"/config.yml",Config.YAML);
+			config.set("proxy.address", "0.0.0.0");
+			config.set("proxy.port", "9855");
+			config.set("proxy.clientId", "bedrock-1");
+			config.set("proxy.type", "bedrock");
+			config.set("proxy.password", "ExamplePassword123");
 			config.save();
 		} else {
 			config = new Config(getDataFolder()+"/config.yml",Config.YAML);

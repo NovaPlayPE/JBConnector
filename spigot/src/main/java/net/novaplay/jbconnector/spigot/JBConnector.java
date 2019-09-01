@@ -30,6 +30,12 @@ public class JBConnector extends JavaPlugin{
 		config = new YamlConfiguration();
 		try {
 			config.load(file);
+			config.addDefault("proxy.address", "0.0.0.0");
+			config.addDefault("proxy.port", "9855");
+			config.addDefault("proxy.clientId", "java-1");
+			config.addDefault("proxy.type", "java");
+			config.addDefault("proxy.password", "ExamplePassword123");
+			config.save(file);
 		} catch(IOException | InvalidConfigurationException e) {
 			
 		}
