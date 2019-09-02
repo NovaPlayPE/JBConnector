@@ -10,8 +10,13 @@ public class JBConnector extends PluginBase {
 	
 	private Config config = null;
 	
+	public static JBConnector instance;
+	
 	public void onEnable() {
+		instance = this;
 		setupConfig();
+		
+		createConnection();
 	}
 	
 	public Config getPluginConfig() {
@@ -25,7 +30,6 @@ public class JBConnector extends PluginBase {
 			config.set("proxy.address", "0.0.0.0");
 			config.set("proxy.port", "9855");
 			config.set("proxy.clientId", "bedrock-1");
-			config.set("proxy.type", "bedrock");
 			config.set("proxy.password", "ExamplePassword123");
 			config.save();
 		} else {
@@ -37,4 +41,8 @@ public class JBConnector extends PluginBase {
 		
 	}
 
+	public static JBConnector getInstance() {
+		return instance;
+	}
+	
 }
