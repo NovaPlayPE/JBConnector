@@ -18,6 +18,10 @@
             <url>http://repo.nukkitx.com/main/</url>
         </repository>
         <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <repository>
             <id>sonatype-nexus-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
             <snapshots>
@@ -27,6 +31,11 @@
     </repositories>
 
     <dependencies>
+    	<dependency>
+      		<groupId>com.github.novaplaype</groupId>
+      		<artifactId>NovaLib</artifactId>
+      		<version>f73ca0cc47fc72e0859ef7e3dd408d3e866d1bfb</version>
+      	</dependency>
         <dependency>
             <groupId>biz.paluch.redis</groupId>
             <artifactId>lettuce</artifactId>
