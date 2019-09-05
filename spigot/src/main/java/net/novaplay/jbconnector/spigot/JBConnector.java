@@ -57,11 +57,6 @@ public class JBConnector extends JavaPlugin{
 	
 	private void createConnection() {
 		
-		
-		
-		
 	}
 	
-	
-
 }

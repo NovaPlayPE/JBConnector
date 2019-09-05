@@ -5,17 +5,19 @@ import java.io.IOException;
 
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
+import net.novaplay.jbconnector.nukkit.client.Client;
 
 public class JBConnector extends PluginBase {
 	
 	private Config config = null;
+	private Client client = null;
 	
 	public static JBConnector instance;
 	
 	public void onEnable() {
 		instance = this;
 		setupConfig();
-		
+		//getServer().getPluginManager().registerEvents(,this);
 		createConnection();
 	}
 	
