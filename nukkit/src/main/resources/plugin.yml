@@ -1,0 +1,6 @@
+name: JBConnector
+main: net.novaplay.jbconnector.nukkit.JBConnector
+api: ["1.0.0"]
+version: "1.0"
+author: NovaPlay development team
+description: Connector to JBProxy

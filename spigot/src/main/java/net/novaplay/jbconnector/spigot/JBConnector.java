@@ -6,7 +6,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import net.novaplay.jbconnector.spigot.client.Client;
 import net.novaplay.jbconnector.spigot.listener.PacketListener;
 import net.novaplay.jbconnector.spigot.session.SessionManager;
-import net.novaplay.networking.ProxyConnectPacket;
+import net.novaplay.networking.server.ProxyConnectPacket;
 import net.novaplay.networking.types.ConnectType;
 
 import java.io.File;

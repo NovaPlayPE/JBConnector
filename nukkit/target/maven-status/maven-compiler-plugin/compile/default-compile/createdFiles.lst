@@ -1,0 +1,11 @@
+net\novaplay\jbconnector\nukkit\client\ClientManager.class
+net\novaplay\jbconnector\nukkit\session\SessionManager$4.class
+net\novaplay\jbconnector\nukkit\session\SessionManager.class
+net\novaplay\jbconnector\nukkit\session\SessionManager$1.class
+net\novaplay\jbconnector\nukkit\listener\PacketListener.class
+net\novaplay\jbconnector\nukkit\client\Client.class
+net\novaplay\jbconnector\nukkit\JBConnector$1.class
+net\novaplay\jbconnector\nukkit\session\SessionManager$2.class
+net\novaplay\jbconnector\nukkit\session\SessionManager$3.class
+net\novaplay\jbconnector\nukkit\JBConnector.class
+net\novaplay\jbconnector\nukkit\listener\PlayerListener.class
