@@ -14,13 +14,17 @@ public class ClientManager {
 	
 	public boolean addClient(Client client) {
 		String serverId = client.getServerId();
-		if(!clients.containsKey(serverId.toLowerCase())) {
+		if(!clients.containsKey(serverId)) {
 			clients.put(serverId, client);
 			Server.getInstance().getLogger().info("[JBConnector] Client '" + serverId+ "' ("+client.getAddress()+":"+client.getPort()+") connected to proxy");
 			return true;
 		}
 		Server.getInstance().getLogger().info("[JBConnector] Couldn't connect to proxy. Please, Check data again");
 		return false;
+	}
+	
+	public void removeClient(String identifier) {
+		
 	}
 	
 }

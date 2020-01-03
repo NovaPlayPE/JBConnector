@@ -7,6 +7,7 @@ import cn.nukkit.scheduler.NukkitRunnable;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import net.novaplay.jbconnector.nukkit.JBConnector;
+import net.novaplay.jbconnector.nukkit.client.Client;
 import net.novaplay.library.callback.Callback;
 import net.novaplay.library.netty.ConnectionListener;
 import net.novaplay.library.netty.NettyHandler;
@@ -61,11 +62,11 @@ public class SessionManager {
 				if(packet instanceof ProxyConnectPacket) {
 					ProxyConnectPacket pk = (ProxyConnectPacket)packet;
 					if(pk.success) {
-						connected = true;
+						plugin.setConnectedStatus(true);
+						plugin.getClientManager().addClient(new Client(clientID, plugin.getServer().getIp(), plugin.getServer().getPort()));
 					} else {
 						
 					}
-					return;
 				}
 			}
 
@@ -93,21 +94,6 @@ public class SessionManager {
 		};
 		this.nettyHandler.registerPacketHandler(this.packetHandler);
 		this.nettyHandler.registerConnectionListener(this.connectionListener);
-		
-		new NukkitRunnable() {
-			public void run() {
-				if(!isConnected()) {
-					ProxyConnectPacket pk = new ProxyConnectPacket();
-					pk.serverId = clientID;
-					pk.password = password;
-					pk.address = plugin.getServer().getIp();
-					pk.port = plugin.getServer().getPort();
-					pk.type = type;
-					sendPacket(pk);
-				}
-			}
-		}.runTaskTimer(plugin,0,20);
-		
 	}
 	
 	public void registerPacket(Class<? extends Packet> packett) {

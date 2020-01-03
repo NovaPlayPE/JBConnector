@@ -6,6 +6,7 @@ import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.Config;
 import net.novaplay.jbconnector.nukkit.client.Client;
+import net.novaplay.jbconnector.nukkit.client.ClientManager;
 import net.novaplay.jbconnector.nukkit.session.SessionManager;
 import net.novaplay.networking.server.ProxyConnectPacket;
 import net.novaplay.networking.types.ConnectType;
@@ -16,6 +17,7 @@ public class JBConnector extends PluginBase {
 	private Client client = null;
 	private boolean connectedStatus = false;
 	private SessionManager mgr = null;
+	private ClientManager clMgr = null;
 
 	public static JBConnector instance;
 
@@ -46,6 +48,10 @@ public class JBConnector extends PluginBase {
 	public SessionManager getSessionManager() {
 		return this.mgr;
 	}
+	
+	public ClientManager getClientManager() {
+		return this.clMgr;
+	}
 
 	private void createConnection() {
 		String ip = config.getString("proxy.address");
@@ -61,8 +67,8 @@ public class JBConnector extends PluginBase {
 			public void run() {
 				if (!connectedStatus) {
 					ProxyConnectPacket packet = new ProxyConnectPacket();
-					packet.address = ip;
-					packet.port = port;
+					packet.address = getServer().getIp();
+					packet.port = getServer().getPort();
 					packet.password = pass;
 					packet.serverId = id;
 					packet.type = ConnectType.JAVA;
@@ -74,6 +80,14 @@ public class JBConnector extends PluginBase {
 
 	public static JBConnector getInstance() {
 		return instance;
+	}
+	
+	public boolean isConnected() {
+		return connectedStatus;
+	}
+	
+	public void setConnectedStatus(boolean value) {
+		connectedStatus = value;
 	}
 
 }
