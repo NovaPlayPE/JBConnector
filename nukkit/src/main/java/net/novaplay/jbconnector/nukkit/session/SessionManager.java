@@ -14,7 +14,8 @@ import net.novaplay.library.netty.NettyHandler;
 import net.novaplay.library.netty.PacketHandler;
 import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.defaultpackets.SetNamePacket;
-import net.novaplay.networking.server.ProxyConnectPacket;
+import net.novaplay.networking.server.*;
+import net.novaplay.networking.player.*;
 import net.novaplay.networking.types.ConnectType;
 
 public class SessionManager {
@@ -51,7 +52,7 @@ public class SessionManager {
 		nettyHandler.connectToServer(host, port, new Callback() {
 			@Override
             public void accept( Object... args ) {
-				plugin.getLogger().info("Connected to proxy");
+				
 			}
 		});
 		
@@ -64,15 +65,21 @@ public class SessionManager {
 					if(pk.success) {
 						plugin.setConnectedStatus(true);
 						plugin.getClientManager().addClient(new Client(clientID, plugin.getServer().getIp(), plugin.getServer().getPort()));
-					} else {
 						
+					} else {
+						return;
 					}
 				}
 			}
 
 			@Override
 			public void registerPackets() {
-				registerPacket(ProxyConnectPacket.class);				
+				registerPacket(LoginPacket.class);
+				registerPacket(LogoutPacket.class);
+				
+				registerPacket(ProxyConnectPacket.class);
+				registerPacket(ServerListSyncPacket.class);
+				registerPacket(ServerInfoPacket.class);
 			}
 			
 		};
@@ -89,6 +96,8 @@ public class SessionManager {
 
 			@Override
 			public void channelDisconnected(ChannelHandlerContext arg0) {
+				plugin.setConnectedStatus(false);
+				plugin.getClientManager().reset();
 				nettyHandler.getNettyClient().scheduleConnect(1500);
 			}
 		};
@@ -104,6 +113,13 @@ public class SessionManager {
 	
 	public void sendPacket(Packet packet) {
 		if(packetHandler != null && nettyHandler != null) {
+			packetHandler.sendPacket(packet);
+		}
+	}
+	
+	public void sendPacketWithResponse(Packet packet, Callback response) {
+		if(packetHandler != null && nettyHandler != null) {
+			nettyHandler.addPacketCallback(packet, response);
 			packetHandler.sendPacket(packet);
 		}
 	}
