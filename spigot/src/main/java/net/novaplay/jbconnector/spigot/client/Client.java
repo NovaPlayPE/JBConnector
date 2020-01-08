@@ -1,8 +1,9 @@
 package net.novaplay.jbconnector.spigot.client;
 
+import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
-import java.util.*;
 
 public class Client {
 	
@@ -21,6 +22,8 @@ public class Client {
 		this.setOnline(true);
 	}
 	
+	public void setPlayers(ArrayList<String> pla) {this.players = pla;}
+	public ArrayList<String> getPlayers() { return this.players; }
 	public String getServerId() { return this.serverId; }
 	public String getAddress() { return this.address; }
 	public int getPort() {return this.port; }

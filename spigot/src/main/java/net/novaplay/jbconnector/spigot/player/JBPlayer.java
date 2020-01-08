@@ -2,26 +2,48 @@ package net.novaplay.jbconnector.spigot.player;
 
 import java.util.UUID;
 
-import org.bukkit.entity.Player;
-
-import net.novaplay.library.netty.packet.Packet;
+import net.novaplay.jbconnector.spigot.client.Client;
 
 public class JBPlayer {
 	
-	private Player player = null;
-	public UUID uuid = null;
+	private String username = null;
+	private UUID uuid = null;
+	private Client client = null;
 	
-	public JBPlayer(Player player) {
-		this.player = player;
-		this.uuid = player.getUniqueId();
+	public JBPlayer(String nickname, UUID uuid) {
+		this.username = nickname;
+		this.uuid = uuid;
 	}
 	
-	public void receivePacket(Packet packet) {
+	public void transfer(Client client) {
 		
 	}
 	
-	public void sendPacket(Packet packet) {
+	public void sendMessage(String message) {
 		
 	}
-
+	
+	public void kick(String reason) {
+		
+	}
+	
+	public void ban(String reason) {
+		this.ban(reason, new String[]{"all"});
+	}
+	
+	public void ban(String reason, String[] clients) {
+		
+	}
+	
+	public String getName() {
+		return this.username;
+	}
+	
+	public UUID getUniqueId() {
+		return this.uuid;
+	}
+	
+	public Client getCurrentClient() {
+		return this.client;
+	}
 }

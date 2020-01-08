@@ -58,7 +58,7 @@ public class JBConnector extends PluginBase {
 		return this.clMgr;
 	}
 	
-	public JBPlayerManager getPLayerManager() {
+	public JBPlayerManager getPlayerManager() {
 		return this.pMgr ;
 	}
 
@@ -83,7 +83,7 @@ public class JBConnector extends PluginBase {
 					packet.port = getServer().getPort();
 					packet.password = pass;
 					packet.serverId = id;
-					packet.type = ConnectType.JAVA;
+					packet.type = ConnectType.BEDROCK;
 					mgr.sendPacket(packet);
 				}
 			}

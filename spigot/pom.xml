@@ -34,7 +34,7 @@
     	<dependency>
       		<groupId>com.github.novaplaype</groupId>
       		<artifactId>NovaLib</artifactId>
-      		<version>d584fe6bf21f735b71756cb067b552711b5aa7b9</version>
+      		<version>d637093b3fcb8d72ce14e3231c1dfb4efdff6f33</version>
       	</dependency>
         <dependency>
             <groupId>biz.paluch.redis</groupId>

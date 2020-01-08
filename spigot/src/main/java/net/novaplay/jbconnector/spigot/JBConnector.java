@@ -3,6 +3,9 @@ package net.novaplay.jbconnector.spigot;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import net.novaplay.jbconnector.spigot.client.ClientManager;
+import net.novaplay.jbconnector.spigot.listener.PlayerListener;
+import net.novaplay.jbconnector.spigot.player.JBPlayerManager;
 import net.novaplay.jbconnector.spigot.client.Client;
 import net.novaplay.jbconnector.spigot.listener.PacketListener;
 import net.novaplay.jbconnector.spigot.session.SessionManager;
@@ -21,9 +24,11 @@ public class JBConnector extends JavaPlugin{
 	public static JBConnector instance;
 	
 	private SessionManager mgr = null;
+	private ClientManager clMgr = null;
+	private JBPlayerManager pMgr = null;
+	
 	private FileConfiguration config = null;
 	private Client client = null;
-	private PacketListener listener;
 	private boolean connectedStatus = false;
 	
 	public static JBConnector getInstance() {
@@ -33,13 +38,21 @@ public class JBConnector extends JavaPlugin{
 	public void onEnable() {
 		instance = this;
 		setupConfig();
-		getServer().getPluginManager().registerEvents(listener = new PacketListener(this),this);
 		createConnection();
+		getServer().getPluginManager().registerEvents(new PlayerListener(),this);
 	}
 	
 	public SessionManager getSessionManager() {
 		return this.mgr;
 	}
+	public ClientManager getClientManager() {
+		return this.clMgr;
+	}
+	
+	public JBPlayerManager getPlayerManager() {
+		return this.pMgr;
+	}
+	
 	
 	public FileConfiguration getPluginConfig() {
 		return config;
@@ -79,8 +92,8 @@ public class JBConnector extends JavaPlugin{
 			public void run() {
 				if(!connectedStatus) {
 					ProxyConnectPacket packet = new ProxyConnectPacket();
-					packet.address = ip;
-					packet.port = port;
+					packet.address = getServer().getIp();
+					packet.port = getServer().getPort();
 					packet.password = pass;
 					packet.serverId = id;
 					packet.type = ConnectType.JAVA;
@@ -88,6 +101,18 @@ public class JBConnector extends JavaPlugin{
 				}
 			}
 		}.runTaskTimer(this,0,20);
+	}
+	
+	public boolean isConnected() {
+		return connectedStatus;
+	}
+	
+	public void setConnectedStatus(boolean value) {
+		connectedStatus = value;
+	}
+	
+	public String getServerId() {
+		return config.getString("proxy.clientId");
 	}
 	
 }
