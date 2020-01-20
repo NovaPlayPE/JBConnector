@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.novaplay.jbconnector.nukkit.JBConnector;
+import net.novaplay.library.callback.Callback;
+import net.novaplay.networking.server.ServerInfoPacket;
 
 public class Client {
 	
@@ -27,5 +30,16 @@ public class Client {
 	public String getServerId() { return this.serverId; }
 	public String getAddress() { return this.address; }
 	public int getPort() {return this.port; }
+	
+	public void update() {
+		ServerInfoPacket pk = new ServerInfoPacket();
+		pk.serverId = getServerId();
+		JBConnector.getInstance().getSessionManager().sendPacketWithResponse(pk, new Callback() {
+			public void accept(Object... o) {
+				ServerInfoPacket p = (ServerInfoPacket)o[0];
+				setPlayers(p.players);
+			}
+		});
+	}
 
 }
