@@ -11,7 +11,6 @@ public class PlayerListener implements Listener{
 	
 	@EventHandler
 	public void playerPreLogin(PlayerPreLoginEvent e) {
-		JBConnector.getInstance().getLogger().info("Login ");
 		LoginPacket pk = new LoginPacket();
 		pk.username = e.getPlayer().getName();
 		pk.uuid = e.getPlayer().getUniqueId();
@@ -22,7 +21,6 @@ public class PlayerListener implements Listener{
 	@EventHandler
 	public void playerQuit(PlayerQuitEvent e) {
 		if(!e.getReason().equals("JBConnector.transfer")) {
-			JBConnector.getInstance().getLogger().info("Logout ");
 			LogoutPacket pk = new LogoutPacket();
 			pk.username = e.getPlayer().getName();
 			pk.uuid = e.getPlayer().getUniqueId();

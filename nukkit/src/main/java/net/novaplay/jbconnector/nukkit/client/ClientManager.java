@@ -8,6 +8,7 @@ import net.novaplay.jbconnector.nukkit.JBConnector;
 import net.novaplay.jbconnector.nukkit.client.Client;
 import net.novaplay.library.callback.Callback;
 import net.novaplay.networking.server.ServerInfoPacket;
+import net.novaplay.networking.server.ServerListSyncPacket;
 
 public class ClientManager {
 
@@ -38,6 +39,29 @@ public class ClientManager {
 			}
 		});
 		return crack.get(0);
+	}
+	
+	public ArrayList<String> getAllClientList(){
+		ServerListSyncPacket pk = new ServerListSyncPacket();
+		final ArrayList<String> list = new ArrayList<String>();
+		JBConnector.getInstance().getSessionManager().sendPacketWithResponse(pk, new Callback() {
+			public void accept(Object... o) {
+				ServerListSyncPacket p = (ServerListSyncPacket)o[0];
+				for(String s : p.serverList) {
+					list.add(s);
+				}
+			}
+		});
+		return list;
+	}
+	
+	public ArrayList<Client> getClients(){
+		ArrayList<Client> c = new ArrayList<Client>();
+		for(String s : getAllClientList()) {
+			c.add(getClientByName(s));
+			return c;
+		}
+		return null;
 	}
 	
 	public void removeClient(String identifier) {

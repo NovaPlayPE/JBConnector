@@ -65,10 +65,17 @@ public class SessionManager {
 					if(pk.success) {
 						plugin.setConnectedStatus(true);
 						plugin.getClientManager().addClient(new Client(clientID, plugin.getServer().getIp(), plugin.getServer().getPort()));
-						
 					} else {
-						return;
+						nettyHandler.getNettyClient().disconnect();
+						nettyHandler.unregisterAllConnectionListener();
+						nettyHandler.unregisterAllPacketHandler();
+						plugin.getServer().getScheduler().scheduleDelayedTask(new Runnable() {
+							public void run() {
+								plugin.getServer().getPluginManager().disablePlugin(plugin);
+								}
+							},20);
 					}
+				return;
 				}
 			}
 
@@ -76,6 +83,7 @@ public class SessionManager {
 			public void registerPackets() {
 				registerPacket(LoginPacket.class);
 				registerPacket(LogoutPacket.class);
+				registerPacket(KickPacket.class);
 				
 				registerPacket(ProxyConnectPacket.class);
 				registerPacket(ServerListSyncPacket.class);

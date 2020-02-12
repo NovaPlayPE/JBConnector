@@ -16,6 +16,7 @@ public class Client {
 	@Getter
 	@Setter
 	public boolean isOnline;
+	public boolean isMain;
 	private ArrayList<String> players = new ArrayList<String>(); //not sure, that it will be always
 	
 	public Client(String serverId, String address, int port) {
@@ -30,6 +31,7 @@ public class Client {
 	public String getServerId() { return this.serverId; }
 	public String getAddress() { return this.address; }
 	public int getPort() {return this.port; }
+	public boolean isMainServer() {return this.isMain;}
 	
 	public void update() {
 		ServerInfoPacket pk = new ServerInfoPacket();

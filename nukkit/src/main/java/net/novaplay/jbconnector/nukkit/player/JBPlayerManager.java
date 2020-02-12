@@ -9,8 +9,8 @@ public class JBPlayerManager {
 	@Getter
 	public static HashMap<String, JBPlayer> players = new HashMap<String,JBPlayer>();
 	
-	public JBPlayer createPlayer(String nickname) {
-		return null; //to do
+	public JBPlayer createPlayer(String nickname,UUID uuid) {
+		return new JBPlayer(nickname,uuid); //to do
 	}
 
 }
