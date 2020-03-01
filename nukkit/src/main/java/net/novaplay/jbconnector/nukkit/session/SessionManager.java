@@ -16,7 +16,6 @@ import net.novaplay.library.netty.packet.Packet;
 import net.novaplay.library.netty.packet.defaultpackets.SetNamePacket;
 import net.novaplay.networking.server.*;
 import net.novaplay.networking.player.*;
-import net.novaplay.networking.types.ConnectType;
 
 public class SessionManager {
 
@@ -25,7 +24,6 @@ public class SessionManager {
 	private NettyHandler nettyHandler;
 	private PacketHandler packetHandler;
 	private ConnectionListener connectionListener;
-	private ConnectType type;
 	private JBConnector plugin;
 	private String password = "ABC";
 	private String clientID;
@@ -44,7 +42,6 @@ public class SessionManager {
 		this.port = portToConnect;
 		this.password = password;
 		this.clientID = clientID;
-		type = ConnectType.BEDROCK;
 	}
 	
 	public void startConnection() {
@@ -65,6 +62,7 @@ public class SessionManager {
 					if(pk.success) {
 						plugin.setConnectedStatus(true);
 						plugin.getClientManager().addClient(new Client(clientID, plugin.getServer().getIp(), plugin.getServer().getPort()));
+						return;
 					} else {
 						nettyHandler.getNettyClient().disconnect();
 						nettyHandler.unregisterAllConnectionListener();
@@ -74,8 +72,10 @@ public class SessionManager {
 								plugin.getServer().getPluginManager().disablePlugin(plugin);
 								}
 							},20);
+						return;
 					}
-				return;
+				} else {
+					plugin.getPacketListener().processPacket(packet);
 				}
 			}
 
@@ -84,10 +84,13 @@ public class SessionManager {
 				registerPacket(LoginPacket.class);
 				registerPacket(LogoutPacket.class);
 				registerPacket(KickPacket.class);
+				registerPacket(ChatPacket.class);
+				registerPacket(TransferPacket.class);
 				
 				registerPacket(ProxyConnectPacket.class);
 				registerPacket(ServerListSyncPacket.class);
 				registerPacket(ServerInfoPacket.class);
+				registerPacket(PlayerInfoPacket.class);
 			}
 			
 		};
@@ -105,7 +108,6 @@ public class SessionManager {
 			@Override
 			public void channelDisconnected(ChannelHandlerContext arg0) {
 				plugin.setConnectedStatus(false);
-				plugin.getClientManager().reset();
 				nettyHandler.getNettyClient().scheduleConnect(1500);
 			}
 		};

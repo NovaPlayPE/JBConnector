@@ -4,3 +4,10 @@ api: ["1.0.0"]
 version: "1.0"
 author: NovaPlay development team
 description: Connector to JBProxy
+commands:
+  transferplayer:
+    description: "Transfer"
+  kickplayer:
+    description: "Kick"
+  getplayers:
+    description: "Get players"

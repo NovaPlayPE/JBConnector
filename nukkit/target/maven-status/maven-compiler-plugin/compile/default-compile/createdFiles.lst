@@ -1,4 +1,5 @@
 net\novaplay\jbconnector\nukkit\client\ClientManager$1.class
+net\novaplay\jbconnector\nukkit\client\RemoteClient.class
 net\novaplay\jbconnector\nukkit\listener\PacketListener.class
 net\novaplay\jbconnector\nukkit\client\Client.class
 net\novaplay\jbconnector\nukkit\client\Client$1.class
@@ -8,8 +9,13 @@ net\novaplay\jbconnector\nukkit\session\SessionManager$3.class
 net\novaplay\jbconnector\nukkit\JBConnector.class
 net\novaplay\jbconnector\nukkit\player\JBPlayer.class
 net\novaplay\jbconnector\nukkit\listener\PlayerListener.class
+net\novaplay\jbconnector\nukkit\player\JBPlayer$1.class
 net\novaplay\jbconnector\nukkit\client\ClientManager.class
 net\novaplay\jbconnector\nukkit\session\SessionManager$2$1.class
 net\novaplay\jbconnector\nukkit\session\SessionManager.class
 net\novaplay\jbconnector\nukkit\session\SessionManager$1.class
+net\novaplay\jbconnector\nukkit\client\RemoteClient$1.class
+net\novaplay\jbconnector\nukkit\JBConnector$2.class
 net\novaplay\jbconnector\nukkit\player\JBPlayerManager.class
+net\novaplay\jbconnector\nukkit\client\ClientManager$2.class
+net\novaplay\jbconnector\nukkit\response\GetOnlineClientsResponse.class
